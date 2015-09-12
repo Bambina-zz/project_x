@@ -1,0 +1,12 @@
+<h1>tasks new!</h1>
+
+<%= form_for :task, url: tasks_path do |f| %>
+  <%= f.hidden_field :errand_id %>
+  <p>
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>

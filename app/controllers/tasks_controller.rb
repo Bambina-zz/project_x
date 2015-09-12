@@ -1,0 +1,45 @@
+# coding: utf-8
+class TasksController < ApplicationController
+  def index
+    @tasks = Task.all
+  end
+
+  def new
+    @task = Task.new(errand_id: params[:task][:errand_id])
+    #TODO: params[:task]ないときのエラー動作を考える
+    # EX: redirect_to(:back)またはトップにリダイレクトetc...
+  end
+  
+  def create
+    @task = Task.new(task_params)
+    binding.pry
+    if @task.save
+      redirect_to @task.errand
+    else
+      render 'new'
+    end
+  end
+  
+  def edit
+    @task = Task.find(params[:id])
+  end
+  
+  def show
+    @task = Task.find(params[:id])
+  end
+  
+  def update
+    @task = Task.find(params[:id])
+ 
+    if task.update(task_params)
+      redirect_to @task
+    else
+      render 'edit'
+    end
+  end
+
+  private
+    def task_params
+      params.require(:task).permit(:name, :errand_id)
+    end
+end
