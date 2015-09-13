@@ -28,10 +28,19 @@ class ErrandsController < ApplicationController
   def update
     @errand = Errand.find(params[:id])
  
-    if errand.update(errand_params)
+    if @errand.update(errand_params)
       redirect_to @errand
     else
       render 'edit'
+    end
+  end
+
+  def destroy
+    @errand = Errand.find(params[:id]).destroy
+
+    respond_to do |format|
+      format.html { redirect_to errands_url }
+      format.json { head :no_content }
     end
   end
 

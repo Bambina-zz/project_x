@@ -1,0 +1,13 @@
+<h1>お使いリスト</h1>
+<ol>
+  <% @errands.each do |errand| %>
+  <li>
+    <%= errand.name %>
+    <%= link_to '詳細', errand_path(errand) %>
+    <%= link_to '編集', edit_errand_path(errand) %>
+    <%= link_to '削除', errand, method: :delete, data: { confirm: 'Are you sure?' } %>
+  </li>
+  <% end %>
+</ol>
+<%= link_to '新しいお使いリスト', new_errand_path %>
+
