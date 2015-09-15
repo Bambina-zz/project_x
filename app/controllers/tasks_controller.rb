@@ -12,7 +12,7 @@ class TasksController < ApplicationController
   
   def create
     @task = Task.new(task_params)
-    binding.pry
+
     if @task.save
       redirect_to @task.errand
     else
@@ -31,10 +31,21 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
  
-    if task.update(task_params)
+    if @task.update(task_params)
       redirect_to @task
     else
       render 'edit'
+    end
+  end
+
+  def destroy
+    @task = Task.find(params[:id])
+    errand = @task.errand
+    @task.destroy
+
+    respond_to do |format|
+      format.html { redirect_to errand_url(errand) }
+      format.json { head :no_content }
     end
   end
 
