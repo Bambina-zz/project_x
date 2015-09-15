@@ -39,12 +39,10 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task = Task.find(params[:id])
-    errand = @task.errand
-    @task.destroy
+    @task = Task.find(params[:id]).destroy
 
     respond_to do |format|
-      format.html { redirect_to errand_url(errand) }
+      format.html { redirect_to errand_url(@task.errand) }
       format.json { head :no_content }
     end
   end
