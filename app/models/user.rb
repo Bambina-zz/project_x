@@ -11,7 +11,6 @@ class User < ActiveRecord::Base
 
   before_save :convert_to_lowercase
 
-  ###TODO: ActiveRecord::StatementInvalid例外をキャッチする
   def convert_to_lowercase
     email.downcase!
   end
