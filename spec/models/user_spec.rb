@@ -1,6 +1,21 @@
 require 'rails_helper'
 
-describe User do
+describe User, :type => :model do
+  describe "transaction" do
+    it "has none to begin with" do
+      expect(User.count).to eq 0
+    end
+
+    it "has one after adding one" do
+      create(:user)
+      expect(User.count).to eq 1
+    end
+
+    it "has none after one was created in a previous example" do
+      expect(User.count).to eq 0
+    end
+  end
+
   it "is valid with a name, email, password and password_confirmation" do
     expect(build(:user)).to be_valid
   end
