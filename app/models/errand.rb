@@ -1,8 +1,12 @@
 class Errand < ActiveRecord::Base
-  validates :shared_hash, uniqueness: true
+  has_many :tasks
+
+  validates :name,        presence: true
+  validates :owner_id,    presence: true
+  validates :shared_hash, presence: true, uniqueness: true
+
   before_validation :set_dummy_user_id
   before_validation :generate_shared_hash
-  has_many :tasks
 
   private
   def set_dummy_user_id
