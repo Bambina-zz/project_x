@@ -44,14 +44,46 @@ describe User, :type => :model do
     user.valid?
     expect(user.errors[:password_confirmation]).to include("can't be blank")
   end
+  
+  describe "duplicate email address" do
+    before do
+      @duplicate_address = 'a@example.com'
+      create( :user, email: @duplicate_address )
+    end
 
-  it "is invalid with a duplicate email address" do
-    duplicate_email = 'a@example.com'
+    it "is invalid" do
+      second_user = build( :user, email: @duplicate_address )
+      second_user.valid?
+      expect(second_user.errors[:email]).to include("has already been taken")
+    end
 
-    create( :user, email: duplicate_email )
-    second_user = build( :user, email: duplicate_email )
-    second_user.valid?
-    expect(second_user.errors[:email]).to include("has already been taken")
+    it "is invalid when it has UPPER CASE letters" do
+      second_user = build( :user, email: @duplicate_address.upcase )
+      second_user.valid?
+      expect(second_user.errors[:email]).to include("has already been taken")
+    end
+  end
+
+  describe "email format" do
+    before do
+      @user = create( :user )
+    end
+
+    it "is valid" do
+      addresses = %w[user@foo.COM A_US-ER@f.b.org frst.lst@foo.jp a+b@baz.cn]
+      addresses.each do |valid_address|
+        @user.email = valid_address
+        expect(@user).to be_valid
+      end
+    end
+
+    it "is invalid" do
+      addresses = %w[user@foo.COM A_US-ER@f.b.org frst.lst@foo.jp a+b@baz.cn]
+      addresses.each do |valid_address|
+        @user.email = valid_address
+        expect(@user).to be_valid
+      end
+    end
   end
 
   it "is invalid when password and password_confirmation are not equal" do
@@ -66,5 +98,18 @@ describe User, :type => :model do
     user = User.new( password: '12345' )
     user.valid?
     expect(user.errors[:password]).to include("is too short (minimum is 6 characters)")
+  end
+
+  describe "password authentication" do
+    before { @user = create(:user) }
+    let(:found_user) { User.find_by( email: @user.email ) }
+
+    it "returns @user with the CORRECT password" do
+      expect(found_user.authenticate(@user.password)).to eq @user
+    end
+
+    it "returns false with the WRONG password" do
+      expect(found_user.authenticate("wrong_password")).to be false
+    end
   end
 end
