@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
 
   validates :password, length: { minimum: 6 }
 
+  validates :password_confirmation, presence: true
+
   before_save :convert_to_lowercase
 
   def convert_to_lowercase

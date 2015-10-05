@@ -39,7 +39,6 @@ describe User, :type => :model do
   end
 
   it "is invalid without password_confirmation" do
-    pending("Add NOT NULL constraint to password_confirmation")
     user = build( :user, password_confirmation: nil )
     user.valid?
     expect(user.errors[:password_confirmation]).to include("can't be blank")
