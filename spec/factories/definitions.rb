@@ -7,8 +7,6 @@ FactoryGirl.define do
 
   factory :errand do
     name { Faker::Name.name }
-    owner_id { Faker::Number.number(2) }
-    shared_hash { Faker::Number.number(10) }
 
     factory :errand_with_tasks do
       transient do
