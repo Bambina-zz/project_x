@@ -1,10 +1,4 @@
 FactoryGirl.define do
-  factory :task do
-    errand
-    name { Faker::Name.name }
-    done false
-  end
-
   factory :errand do
     name { Faker::Name.name }
 
@@ -17,12 +11,5 @@ FactoryGirl.define do
         create_list( :task, evaluator.tasks_count, errand: errand )
       end
     end
-  end
-
-  factory :user do
-    name  { Faker::Name.name }
-    email { Faker::Internet.email }
-    password "123456"
-    password_confirmation "123456"
   end
 end
