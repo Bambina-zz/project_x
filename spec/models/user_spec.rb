@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe User, :type => :model do
+describe User, type: :model do
   describe "transaction" do
     it "has none to begin with" do
       expect(User.count).to eq 0

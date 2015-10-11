@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Errand, :type => :model do
+describe Errand, type: :model do
   describe "transaction" do
     it "has one after adding one" do
       skip

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Task, :type => :model do
+describe Task, type: :model do
   describe "transaction" do
     it "has none to begin with" do
       expect(Task.count).to eq 0
