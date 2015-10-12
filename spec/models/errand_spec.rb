@@ -46,4 +46,33 @@ describe Errand, type: :model do
       expect(errand.errors[:name]).to include("can't be blank")
     end
   end
+
+  describe "association" do
+
+    context "when errand has 0 task" do
+      it "returns 0 task" do
+        errand = create(:errand)
+        expect(errand.tasks.size).to eq 0
+      end
+    end
+
+    context "when errand has 3 tasks" do
+      before do
+        @errand = create(:errand_with_tasks)
+      end
+
+      it "returns 3 tasks" do
+        expect(@errand.tasks.size).to eq 3
+      end
+
+      it "doesn't allow duplicate task's name per errand" do
+        existent_name = @errand.tasks.first.name
+        duplicate_task = build( :task,
+                                name: existent_name,
+                                errand_id: @errand.id )
+        duplicate_task.valid?
+        expect(duplicate_task.errors[:name]).to include("has already been taken")
+      end
+    end
+  end
 end
