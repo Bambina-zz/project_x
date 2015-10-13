@@ -7,6 +7,7 @@ describe User, type: :model do
       expect(User.count).to eq 1
     end
   end
+
   describe "validation" do
     it "is valid with a name, email, password and password_confirmation" do
       expect(build(:user)).to be_valid
