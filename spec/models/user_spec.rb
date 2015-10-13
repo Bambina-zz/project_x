@@ -9,100 +9,93 @@ describe User, type: :model do
   end
 
   describe "validation" do
-    it "is valid with a name, email, password and password_confirmation" do
-      expect(build(:user)).to be_valid
+    let(:user) { build(:user, params) }
+
+    context "with valid params" do
+      let(:params) { nil }
+      it { expect(user.valid?).to be_truthy }
     end
 
-    it "is invalid without name" do
-      user = build( :user, name: nil )
-      user.valid?
-      expect(user.errors[:name]).to include("can't be blank")
+    context "without name" do
+      let(:params) { {name: nil} }
+      it { expect(user.valid?).to be_falsy }
     end
 
-    it "is invalid without email" do
-      user = build( :user, email: nil )
-      user.valid?
-      expect(user.errors[:email]).to include("can't be blank")
+    context "without email" do
+      let(:params) { {email: nil} }
+      it { expect(user.valid?).to be_falsy }
     end
 
-    it "is invalid without password" do
-      user = build( :user, password: nil )
-      user.valid?
-      expect(user.errors[:password]).to include("can't be blank")
+    context "without password" do
+      let(:params) { {password: nil} }
+      it { expect(user.valid?).to be_falsy }
     end
 
-    it "is invalid without password_confirmation" do
-      user = build( :user, password_confirmation: nil )
-      user.valid?
-      expect(user.errors[:password_confirmation]).to include("can't be blank")
+    context "without password_confirmation" do
+      let(:params) { {password_confirmation: nil} }
+      it { expect(user.valid?).to be_falsy }
     end
 
-    it "is invalid when password and password_confirmation are not equal" do
-      user = User.new(
-        password: '123456',
-        password_confirmation: '654321p' )
-      user.valid?
-      expect(user.errors[:password_confirmation]).to include("doesn't match Password")
+    context "when password and password_confirmation are not equal" do
+      let(:params) { {password: '123456', password_confirmation: '654321'} }
+      it { expect(user.valid?).to be_falsy }
     end
 
-    it "is invalid when password's character is less than 5 letters" do
-      user = User.new( password: '12345' )
-      user.valid?
-      expect(user.errors[:password]).to include("is too short (minimum is 6 characters)")
+    context "when password's character is less than 5 letters" do
+      let(:params) { {password: '12345', password_confirmation: '12345'} }
+      it { expect(user.valid?).to be_falsy }
     end
 
     describe "duplicate email address" do
-      before do
-        @duplicate_address = 'a@example.com'
-        create( :user, email: @duplicate_address )
+      let(:email) { "a@example.com" }
+      let!(:exist_user) { create(:user, email: email) }
+
+      context "when email has already taken" do
+        let(:user) { build(:user, email: email) }
+        it { expect(user.valid?).to be_falsy }
       end
 
-      it "is invalid" do
-        second_user = build( :user, email: @duplicate_address )
-        second_user.valid?
-        expect(second_user.errors[:email]).to include("has already been taken")
-      end
-
-      it "is invalid when it has UPPER CASE letters" do
-        second_user = build( :user, email: @duplicate_address.upcase )
-        second_user.valid?
-        expect(second_user.errors[:email]).to include("has already been taken")
+      context "with UPPER CASE email" do
+        let(:user) { build(:user, email: email.upcase ) }
+        it { expect(user.valid?).to be_falsy }
       end
     end
 
     describe "email format" do
-      before do
-        @user = create( :user )
-      end
+      let(:user) { build(:user) }
 
-      it "is valid" do
-        addresses = %w[user@foo.COM A_US-ER@f.b.org frst.lst@foo.jp a+b@baz.cn]
-        addresses.each do |valid_address|
-          @user.email = valid_address
-          expect(@user).to be_valid
+      context "with valid email format" do
+        it "is valid" do
+          addresses = %w[useUPCASE@foo.COM use_UNDERSCORE-DASH@f.b.org first.last@foo.jp a+b@baz.cn]
+          addresses.each do |valid_address|
+            user.email = valid_address
+            expect(user.valid?).to be_truthy, "#{user.email} should be VALID!"
+          end
         end
       end
 
-      it "is invalid" do
-        addresses = %w[user@foo.COM A_US-ER@f.b.org frst.lst@foo.jp a+b@baz.cn]
-        addresses.each do |valid_address|
-          @user.email = valid_address
-          expect(@user).to be_valid
+      context "with invalid email format" do
+        it "is invalid" do
+          addresses = %w[user@foo,com user_at_foo.org example.user@foo. foo@bar_baz.com foo@bar+baz.com]
+          addresses.each do |valid_address|
+            user.email = valid_address
+            expect(user.valid?).to be_falsy, "#{user.email} should be INVALID!"
+          end
         end
       end
     end
   end
 
   describe "#authenticate" do
-    before { @user = create(:user) }
-    let(:found_user) { User.find_by( email: @user.email ) }
+    let!(:user) { create(:user) }
+    let(:exist_user) { User.find_by( email: user.email ) }
 
-    it "returns @user with the CORRECT password" do
-      expect(found_user.authenticate(@user.password)).to eq @user
+    context "with the CORRECT password" do
+      it { expect( exist_user.authenticate(user.password) ).to be_truthy }
     end
 
-    it "returns false with the WRONG password" do
-      expect(found_user.authenticate("wrong_password")).to be false
+    context "with the WRONG password" do
+      it { expect( exist_user.authenticate("wrong_password") ).to be_falsy }
     end
   end
 end
