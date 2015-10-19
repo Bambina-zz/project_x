@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Errand, type: :model do
+describe Errand, type: :mode do
   describe "transaction" do
     it "has one after adding one" do
       skip
@@ -36,42 +36,42 @@ describe Errand, type: :model do
   end
 
   describe "validation" do
-    it "is valid with a name" do
-      expect(build(:errand)).to be_valid
+    let(:errand) { build(:errand, params) }
+
+    context "with valid params" do
+      let(:params) { nil }
+      it { expect(errand.valid?).to be_truthy }
     end
 
-    it "is invalid without name" do
-      errand = build( :errand, name: nil )
-      errand.valid?
-      expect(errand.errors[:name]).to include("can't be blank")
+    context "without name" do
+      let(:params) { { name: nil} }
+      it { expect(errand.valid?).to be_falsy }
     end
   end
 
-  describe "association" do
+  describe "association with task model" do
+    let(:errand) { create(:errand) }
+    let(:errand_with_tasks) { create(:errand_with_tasks) }
 
-    context "when errand has 0 task" do
-      it "returns 0 task" do
-        errand = create(:errand)
-        expect(errand.tasks.size).to eq 0
+    describe "the collection of tasks" do
+      context "with no task" do
+        it { expect(errand.tasks).to be_empty }
+      end
+
+      context "with tasks" do
+        it { expect(errand_with_tasks.tasks).not_to be_empty }
       end
     end
 
-    context "when errand has 3 tasks" do
-      before do
-        @errand = create(:errand_with_tasks)
-      end
+    describe "duplicate task's name" do
+      let(:name) { "duplicate_name" }
+      let!(:exist_task) { create(:task,
+                                 name: name,
+                                 errand_id: errand.id) }
 
-      it "returns 3 tasks" do
-        expect(@errand.tasks.size).to eq 3
-      end
-
-      it "doesn't allow duplicate task's name per errand" do
-        existent_name = @errand.tasks.first.name
-        duplicate_task = build( :task,
-                                name: existent_name,
-                                errand_id: @errand.id )
-        duplicate_task.valid?
-        expect(duplicate_task.errors[:name]).to include("has already been taken")
+      context "when name has already used" do
+        let(:task) { build(:task, name: name, errand_id: errand) }
+        it { expect(task.valid?).to be_falsy }
       end
     end
   end
