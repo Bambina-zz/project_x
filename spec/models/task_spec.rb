@@ -9,26 +9,26 @@ describe Task, type: :model do
   end
 
   describe "validation" do
-    it "is valid with a name, task_id and done" do
-      expect(build(:task)).to be_valid
+    let(:task) { build(:task, params) }
+
+    context "with valid params" do
+      let(:params) { nil }
+      it { expect(task.valid?).to be_truthy }
     end
 
-    it "is invalid without name" do
-      task = build( :task, name: nil )
-      task.valid?
-      expect(task.errors[:name]).to include("can't be blank")
+    context "without name" do
+      let(:params) { {name: nil} }
+      it { expect(task.valid?).to be_falsy }
     end
 
-    it "is invalid without errand_id" do
-      task = build( :task, errand_id: nil )
-      task.valid?
-      expect(task.errors[:errand_id]).to include("can't be blank")
+    context "without errand_id" do
+      let(:params) { {errand_id: nil} }
+      it { expect(task.valid?).to be_falsy }
     end
 
-    it "is invalid when done is neither TRUE nor FALSE" do
-      task = build( :task, done: nil )
-      task.valid?
-      expect(task.errors[:done]).to include("is not included in the list")
+    context "when done is neither TRUE nor FALSE" do
+      let(:params) { {done: nil} }
+      it { expect(task.valid?).to be_falsy }
     end
   end
 end

@@ -44,7 +44,7 @@ describe Errand, type: :model do
     end
 
     context "without name" do
-      let(:params) { { name: nil} }
+      let(:params) { {name: nil} }
       it { expect(errand.valid?).to be_falsy }
     end
   end
