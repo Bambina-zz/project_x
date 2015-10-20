@@ -14,7 +14,7 @@ describe Errand, type: :model do
   describe "callback" do
     it "applies :set_dummy_user_id" do
       errand = build(:errand)
-      expect(errand).to receive( :set_dummy_user_id )
+      expect(errand).to receive(:set_dummy_user_id)
       errand.valid?
     end
 
@@ -65,13 +65,16 @@ describe Errand, type: :model do
 
     describe "duplicate task's name" do
       let(:name) { "duplicate_name" }
-      let!(:exist_task) { create(:task,
-                                 name: name,
-                                 errand_id: errand.id) }
+      let!(:exist_task) { create(:task, name: name, errand_id: errand.id) }
 
       context "when name has already used" do
-        let(:task) { build(:task, name: name, errand_id: errand) }
+        let(:task) { build(:task, name: name, errand_id: errand.id) }
         it { expect(task.valid?).to be_falsy }
+      end
+
+      context "with new name" do
+        let(:task) { build(:task, name: "new_name", errand_id: errand.id) }
+        it { expect(task.valid?).to be_truthy }
       end
     end
   end
