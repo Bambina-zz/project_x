@@ -60,6 +60,13 @@ describe Errand, type: :model do
 
       context "with tasks" do
         it { expect(errand_with_tasks.tasks).not_to be_empty }
+
+        describe "#destroy" do
+          let!(:task) { errand_with_tasks.tasks.first }
+          before { errand_with_tasks.destroy }
+
+          it { expect(Task.find_by(id: task.id)).to be_nil }
+        end
       end
     end
 
