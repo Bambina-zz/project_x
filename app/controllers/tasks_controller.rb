@@ -9,7 +9,7 @@ class TasksController < ApplicationController
     #TODO: params[:task]ないときのエラー動作を考える
     # EX: redirect_to(:back)またはトップにリダイレクトetc...
   end
-  
+
   def create
     @task = Task.new(task_params)
 
@@ -19,18 +19,18 @@ class TasksController < ApplicationController
       render 'new'
     end
   end
-  
+
   def edit
     @task = Task.find(params[:id])
   end
-  
+
   def show
     @task = Task.find(params[:id])
   end
-  
+
   def update
     @task = Task.find(params[:id])
- 
+
     if @task.update(task_params)
       redirect_to @task
     else
