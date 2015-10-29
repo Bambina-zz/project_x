@@ -2,7 +2,11 @@ class UsersController < ApplicationController
   before_action :set_user, only: %i(edit show update destroy)
 
   def index
-    @users = User.all
+    if current_user.admin
+      @users = User.all
+    else
+      redirect_to root_url
+    end
   end
 
   def new
@@ -13,7 +17,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      redirect_to @user
+      login @user
+      redirect_to errands_url
     else
       render 'new'
     end
@@ -36,7 +41,7 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
 
-    redirect_to users_url
+    redirect_to root_url
   end
 
   private
