@@ -12,6 +12,7 @@
     <%= link_to "ログアウト", logout_path, method: "delete" %>
   <% else %>
     <%= link_to "ログイン", login_path %>
+    <%= link_to "新規登録", register_path %>
   <% end %>
 
   <%= yield %>
