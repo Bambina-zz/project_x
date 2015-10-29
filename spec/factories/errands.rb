@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :errand do
     name { Faker::Name.name }
+    owner_id 1
 
     factory :errand_with_tasks do
       transient do

@@ -1,6 +1,6 @@
 class ErrandsController < ApplicationController
   def index
-    @errands = Errand.all
+    @errands = Errand.where(owner_id: current_user.id)
   end
 
   def new
@@ -9,6 +9,7 @@ class ErrandsController < ApplicationController
 
   def create
     @errand = Errand.new(errand_params)
+    @errand.owner_id = current_user.id
 
     if @errand.save
       redirect_to @errand

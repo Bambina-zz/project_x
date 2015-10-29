@@ -3,21 +3,13 @@ require 'rails_helper'
 describe Errand, type: :model do
   describe "transaction" do
     it "has one after adding one" do
-      skip
-      ##TODO: get rid of :set_dummy_user_id
       owner = create(:user)
       create(:errand, owner_id: owner.id)
-      expect(Errand.count).to eq owner.id
+      expect(Errand.count).to eq 1
     end
   end
 
   describe "callback" do
-    it "applies :set_dummy_user_id" do
-      errand = build(:errand)
-      expect(errand).to receive(:set_dummy_user_id)
-      errand.valid?
-    end
-
     it "applies :generate_shared_hash" do
       errand = build( :errand, shared_hash: nil )
       expect(errand).to receive(:generate_shared_hash)
