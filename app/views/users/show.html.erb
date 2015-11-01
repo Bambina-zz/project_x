@@ -1,0 +1,7 @@
+<h1>ユーザープロフィール</h1>
+<ul>
+  <li>名前：&nbsp;<%= @user.name %></li>
+  <li>メールアドレス：&nbsp;<%= @user.email %></li>
+</ul>
+<%= link_to '編集', edit_user_path(@user) %>
+<%= link_to '削除', @user, method: :delete, data: { confirm: 'Are you sure?' } %>

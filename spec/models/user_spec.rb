@@ -46,6 +46,11 @@ describe User, type: :model do
       it { expect(user.valid?).to be_falsy }
     end
 
+    context "when admin is neither TRUE nor FALSE" do
+      let(:params) { {admin: nil} }
+      it { expect(user.valid?).to be_falsy }
+    end
+
     describe "duplicate email address" do
       let(:email) { "a@example.com" }
       let!(:exist_user) { create(:user, email: email) }
