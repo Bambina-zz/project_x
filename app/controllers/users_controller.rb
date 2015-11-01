@@ -2,11 +2,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: %i(edit show update destroy)
 
   def index
-    if current_user.admin
-      @users = User.all
-    else
-      redirect_to root_url
-    end
+    @users = User.all
   end
 
   def new
