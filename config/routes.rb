@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :users
 
   resources :sessions, only: [:new, :create, :destroy]
-  root  'static_pages#home'
+  root  'welcome#home'
   match '/register', to: 'users#new',        via: 'get'
   match '/login',    to: 'sessions#new',     via: 'get'
   match '/logout',   to: 'sessions#destroy', via: 'delete'
