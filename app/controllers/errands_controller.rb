@@ -1,4 +1,6 @@
 class ErrandsController < ApplicationController
+  before_action :set_errand, only: %i(edit show update destroy)
+
   def index
     @errands = current_user.errands
   end
@@ -18,16 +20,12 @@ class ErrandsController < ApplicationController
   end
 
   def edit
-    @errand = current_user.errands.find(params[:id])
   end
 
   def show
-    @errand = current_user.errands.find(params[:id])
   end
 
   def update
-    @errand = current_user.errands.find(params[:id])
-
     if @errand.update(errand_params)
       redirect_to @errand
     else
@@ -36,7 +34,7 @@ class ErrandsController < ApplicationController
   end
 
   def destroy
-    @errand = current_user.errands.find(params[:id]).destroy
+    @errand.destroy
 
     respond_to do |format|
       format.html { redirect_to errands_url }
@@ -45,7 +43,12 @@ class ErrandsController < ApplicationController
   end
 
   private
-    def errand_params
-      params.require(:errand).permit(:name)
-    end
+
+  def set_errand
+    @errand = current_user.errands.find(params[:id])
+  end
+
+  def errand_params
+    params.require(:errand).permit(:name)
+  end
 end
