@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20151029132947) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "errands", force: :cascade do |t|
     t.string   "name",        null: false
     t.string   "shared_hash", null: false
@@ -21,7 +24,7 @@ ActiveRecord::Schema.define(version: 20151029132947) do
     t.datetime "updated_at",  null: false
   end
 
-  add_index "errands", ["shared_hash"], name: "index_errands_on_shared_hash", unique: true
+  add_index "errands", ["shared_hash"], name: "index_errands_on_shared_hash", unique: true, using: :btree
 
   create_table "tasks", force: :cascade do |t|
     t.string   "name",                       null: false
@@ -40,6 +43,6 @@ ActiveRecord::Schema.define(version: 20151029132947) do
     t.boolean  "admin",                      default: false, null: false
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
 end
