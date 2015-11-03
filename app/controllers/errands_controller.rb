@@ -1,15 +1,14 @@
 class ErrandsController < ApplicationController
   def index
-    @errands = Errand.where(owner_id: current_user.id)
+    @errands = current_user.errands
   end
 
   def new
-    @errand = Errand.new
+    @errand = current_user.errands.new
   end
 
   def create
-    @errand = Errand.new(errand_params)
-    @errand.owner_id = current_user.id
+    @errand = current_user.errands.new(errand_params)
 
     if @errand.save
       redirect_to @errand
@@ -19,15 +18,15 @@ class ErrandsController < ApplicationController
   end
 
   def edit
-    @errand = Errand.find(params[:id])
+    @errand = current_user.errands.find(params[:id])
   end
 
   def show
-    @errand = Errand.find(params[:id])
+    @errand = current_user.errands.find(params[:id])
   end
 
   def update
-    @errand = Errand.find(params[:id])
+    @errand = current_user.errands.find(params[:id])
 
     if @errand.update(errand_params)
       redirect_to @errand
@@ -37,7 +36,7 @@ class ErrandsController < ApplicationController
   end
 
   def destroy
-    @errand = Errand.find(params[:id]).destroy
+    @errand = current_user.errands.find(params[:id]).destroy
 
     respond_to do |format|
       format.html { redirect_to errands_url }
