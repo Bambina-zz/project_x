@@ -1,4 +1,6 @@
 <%= form_for @user do |f| %>
+  <%= render partial: "shared/errors", locals: { object: @user } %>
+
   <p>
     <%= f.label :name %><br />
     <%= f.text_field :name %>
