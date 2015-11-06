@@ -1,12 +1,5 @@
 <%= form_for @errand do |f| %>
-
-  <% if @errand.errors.any? %>
-    <ul>
-      <% @errand.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-    </ul>
-  <% end %>
+  <%= render partial: "shared/errors", locals: { object: @errand } %>
 
   <p>
     <%= f.label :name %><br>
