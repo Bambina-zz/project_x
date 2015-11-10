@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  resources :errands
-  resources :tasks
+  resources :errands do
+    resources :tasks
+  end
   resources :users
 
   resources :sessions, only: [:new, :create, :destroy]
