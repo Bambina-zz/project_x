@@ -1,4 +1,6 @@
-<%= form_for @task, url: {action: "update"} do |f| %>
+<%= form_for @task do |f| %>
+  <%= render partial: "shared/errors", locals: { object: @task } %>
+
   <p>
     <%= f.label :name %><br>
     <%= f.text_field :name %>

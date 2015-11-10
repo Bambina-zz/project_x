@@ -8,6 +8,7 @@ class SessionsController < ApplicationController
       login user
       redirect_to errands_url
     else
+      flash[:alert] = 'ログインに失敗しました。'
       render 'new'
     end
   end

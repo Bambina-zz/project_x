@@ -1,4 +1,6 @@
-<%= form_for @errand, url: {action: "update"} do |f| %>
+<%= form_for @errand do |f| %>
+  <%= render partial: "shared/errors", locals: { object: @errand } %>
+
   <p>
     <%= f.label :name %><br>
     <%= f.text_field :name %>
