@@ -5,13 +5,14 @@ class TasksController < ApplicationController
   end
 
   def new
-    @task = Task.new(errand_id: params[:task][:errand_id])
+    @task = Task.new(errand_id: params[:errand_id])
     #TODO: params[:task]ないときのエラー動作を考える
     # EX: redirect_to(:back)またはトップにリダイレクトetc...
   end
 
   def create
     @task = Task.new(task_params)
+    @task.errand_id = params[:errand_id]
 
     if @task.save
       redirect_to @task.errand

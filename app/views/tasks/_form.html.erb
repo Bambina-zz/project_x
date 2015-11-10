@@ -1,4 +1,4 @@
-<%= form_for @task do |f| %>
+<%= form_for [@task.errand, @task] do |f| %>
   <%= render partial: "shared/errors", locals: { object: @task } %>
 
   <p>
