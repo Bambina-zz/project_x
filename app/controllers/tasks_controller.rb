@@ -33,7 +33,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
 
     if @task.update(task_params)
-      redirect_to @task
+      redirect_to errand_task_path
     else
       render 'edit'
     end
