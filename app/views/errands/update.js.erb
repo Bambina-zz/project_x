@@ -1,5 +1,5 @@
 $('#errand_<%= @errand.id %> .link_to_errand').text('<%= j @errand.name %>');
-$('#tasks_errand_<%= @errand.id %> #errand_name').text('<%= j @errand.name %>');
+$('#tasks_errand_<%= @errand.id %> .name_errand').text('<%= j @errand.name %>');
 
 $("#edit_errand_<%= @errand.id %>").addClass('hidden');
 $("#errand_<%= @errand.id %> .link_to_errand").removeClass('hidden');

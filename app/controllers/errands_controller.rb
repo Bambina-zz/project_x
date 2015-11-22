@@ -22,6 +22,8 @@ class ErrandsController < ApplicationController
   end
 
   def show
+    errand = Errand.find(params[:id])
+    @task = errand.tasks.new
   end
 
   def update
