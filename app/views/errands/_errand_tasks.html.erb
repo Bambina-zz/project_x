@@ -1,0 +1,13 @@
+<div id='tasks_<%= dom_id(errand) %>'>
+<h1>お使いリスト:<span id='errand_name'><%= errand.name %></span></h1>
+<ol>
+  <% errand.tasks.each do |task| %>
+    <li>
+      <%= task.name %>
+      <%= link_to '詳細', errand_task_path(errand, task) %>
+      <%= link_to '編集', edit_errand_task_path(errand, task) %>
+      <%= link_to '削除', errand_task_path(errand, task), method: :delete, data: { confirm: 'Are you sure?' }  %>
+    </li>
+  <% end %>
+</ol>
+</div>

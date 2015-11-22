@@ -13,7 +13,6 @@ class ErrandsController < ApplicationController
     @errand = current_user.errands.new(errand_params)
 
     if @errand.save
-      redirect_to @errand
     else
       render 'new'
     end
@@ -27,7 +26,6 @@ class ErrandsController < ApplicationController
 
   def update
     if @errand.update(errand_params)
-      redirect_to @errand
     else
       render 'edit'
     end
@@ -35,11 +33,6 @@ class ErrandsController < ApplicationController
 
   def destroy
     @errand.destroy
-
-    respond_to do |format|
-      format.html { redirect_to errands_url }
-      format.json { head :no_content }
-    end
   end
 
   private
