@@ -15,7 +15,6 @@ class TasksController < ApplicationController
     @task.errand_id = params[:errand_id]
 
     if @task.save
-      redirect_to @task.errand
     else
       render 'new'
     end
@@ -33,7 +32,6 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
 
     if @task.update(task_params)
-      redirect_to errand_task_path
     else
       render 'edit'
     end
@@ -41,11 +39,6 @@ class TasksController < ApplicationController
 
   def destroy
     @task = Task.find(params[:id]).destroy
-
-    respond_to do |format|
-      format.html { redirect_to errand_url(@task.errand) }
-      format.json { head :no_content }
-    end
   end
 
   private

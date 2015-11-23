@@ -1,0 +1,35 @@
+<div id='tasks_<%= dom_id(errand) %>'>
+  <h1>お使いリスト:<span class='name_errand'><%= errand.name %></span></h1>
+  <%= form_for [@task.errand, @task], remote: true do |f| %>
+    <%= render partial: "shared/errors", locals: { object: @task } %>
+
+    <p>
+      <%= f.label :name %><br>
+      <%= f.text_field :name %>
+    </p>
+    <p>
+      <%= f.submit  %>
+    </p>
+  <% end %>
+  <ol>
+    <% errand.tasks.each do |task| %>
+    <li id='<%= dom_id(task) %>'>
+      <span class='name_task'><%= task.name %></span>
+      <%= form_for [task.errand, task], remote: true, html: { class: 'hidden'} do |f| %>
+        <%= render partial: "shared/errors", locals: { object: task } %>
+
+        <p>
+          <%= f.label :name %><br>
+          <%= f.text_field :name %>
+        </p>
+        <p>
+          <%= f.submit  %>
+        </p>
+      <% end %>
+      <%= link_to '編集', '#', data: { id: task.id, errand_id: errand.id }, class: 'edit_task' %>
+      <%= link_to 'キャンセル', '#', data: { id: task.id, errand_id: errand.id }, class: 'edit_task_cancel hidden' %>
+      <%= link_to '削除', errand_task_path(errand, task), method: :delete, remote: true, data: { id: task.id, errand_id: errand.id, confirm: 'タスクを削除してもよろしいですか?' }  %>
+    </li>
+    <% end %>
+  </ol>
+</div>

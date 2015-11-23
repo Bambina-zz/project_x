@@ -1,3 +1,40 @@
+<% if logged_in? %>
+<div>HOME</div>
 
-<br />
-it's home!
+<%= form_for @errand, remote: true do |f| %>
+  <%= render partial: "shared/errors", locals: { object: @errand } %>
+
+  <p>
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.submit  %>
+  </p>
+<% end %>
+
+<ul id='list_errands'>
+  <% current_user.errands.each do |errand| %>
+    <li id='<%= dom_id(errand) %>'>
+      <%= link_to errand.name, errand_path(errand), remote: true, class: 'link_to_errand' %>
+      <%= form_for errand, remote: true, html: { class: 'hidden'} do |f| %>
+        <%= render partial: "shared/errors", locals: { object: errand } %>
+
+        <p>
+          <%= f.label :name %><br>
+          <%= f.text_field :name %>
+        </p>
+        <p>
+          <%= f.submit  %>
+        </p>
+      <% end %>
+      <%= link_to '編集', '#', data: { id: errand.id }, class: 'edit_errand' %>
+      <%= link_to 'キャンセル', '#', data: { id: errand.id }, class: 'edit_errand_cancel hidden' %>
+      <%= link_to '削除', errand_path(errand), data: { id: errand.id, confirm: 'リストを削除してもよいですか？' }, method: :delete, remote: true %>
+    </li>
+  <% end %>
+</ul>
+
+<div id='list_tasks'>
+</div>
+<% end %>
