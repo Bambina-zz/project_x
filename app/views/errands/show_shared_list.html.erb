@@ -1,0 +1,8 @@
+<h1>お使いリスト:<%= @errand.name %></h1>
+<ol>
+  <% @errand.tasks.each do |task| %>
+    <li>
+      <%= task.name %>
+    </li>
+  <% end %>
+</ol>

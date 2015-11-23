@@ -1,4 +1,10 @@
 <div id='tasks_<%= dom_id(errand) %>'>
+  <div>
+    <input type='text' class='shared_url' value='<%= @shared_url %>' readonly='readonly' />
+    <span id='copy_to_clipboard'>
+      URLをコピーする
+    </span>
+  </div>
   <h1>お使いリスト:<span class='name_errand'><%= errand.name %></span></h1>
   <%= form_for [@task.errand, @task], remote: true do |f| %>
     <%= render partial: "shared/errors", locals: { object: @task } %>

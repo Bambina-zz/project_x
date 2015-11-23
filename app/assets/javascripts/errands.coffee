@@ -17,5 +17,11 @@ $(document).on 'click', '.edit_errand_cancel', (event) ->
   $("#errand_#{id} .edit_errand").removeClass('hidden')
   $("#errand_#{id} .edit_errand_cancel").addClass('hidden')
 
+
 $(document).on 'ajax:success', '#new_errand', (event) ->
   $('#errand_name').val ''
+
+
+$(document).on 'click', '#copy_to_clipboard', (event) ->
+  $('.shared_url').select()
+  document.execCommand('copy')
