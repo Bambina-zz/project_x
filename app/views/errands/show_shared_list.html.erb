@@ -1,7 +1,11 @@
 <h1>お使いリスト:<%= @errand.name %></h1>
 <ol>
   <% @errand.tasks.each do |task| %>
-    <li>
+    <li id='<%= dom_id(task) %>'>
+      <%= form_for [task.errand, task], remote: true, html: { id: 'edit_done'} do |f| %>
+        <%= render partial: "shared/errors", locals: { object: task } %>
+        <%= f.check_box :done, { id: task.id, class: 'checkbox_done' } %>
+      <% end %>
       <%= task.name %>
     </li>
   <% end %>

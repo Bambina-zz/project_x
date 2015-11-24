@@ -30,7 +30,6 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
-
     if @task.update(task_params)
     else
       render 'edit'
@@ -42,7 +41,7 @@ class TasksController < ApplicationController
   end
 
   private
-    def task_params
-      params.require(:task).permit(:name, :errand_id)
-    end
+  def task_params
+    params.require(:task).permit(:name, :errand_id, :done)
+  end
 end

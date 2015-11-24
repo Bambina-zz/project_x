@@ -22,3 +22,9 @@ $(document).on 'click', '.edit_task_cancel', (event) ->
 
 $(document).on 'ajax:success', '#new_task', (event) ->
   $('#task_name').val ''
+
+
+$(document).on 'click', '.checkbox_done', (event)->
+  element = event.target
+  id = $(element).attr('id')
+  $("#task_#{id} #edit_done").submit()
