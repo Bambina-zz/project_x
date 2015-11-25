@@ -8,7 +8,6 @@
   <h1>お使いリスト:<span class='name_errand'><%= errand.name %></span></h1>
   <%= form_for [@task.errand, @task], remote: true do |f| %>
     <%= render partial: "shared/errors", locals: { object: @task } %>
-
     <p>
       <%= f.label :name %><br>
       <%= f.text_field :name %>
@@ -27,7 +26,6 @@
       <span class='name_task'><%= task.name %></span>
       <%= form_for [task.errand, task], remote: true, html: { class: 'hidden'} do |f| %>
         <%= render partial: "shared/errors", locals: { object: task } %>
-
         <p>
           <%= f.label :name %><br>
           <%= f.text_field :name %>
