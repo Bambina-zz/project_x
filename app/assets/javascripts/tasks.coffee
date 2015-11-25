@@ -26,5 +26,5 @@ $(document).on 'ajax:success', '#new_task', (event) ->
 
 $(document).on 'click', '.checkbox_done', (event)->
   element = event.target
-  id = $(element).attr('id')
+  id = $(element).data('id')
   $("#task_#{id} #edit_done").submit()

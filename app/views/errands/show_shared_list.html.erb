@@ -4,7 +4,7 @@
     <li id='<%= dom_id(task) %>'>
       <%= form_for [task.errand, task], remote: true, html: { id: 'edit_done'} do |f| %>
         <%= render partial: "shared/errors", locals: { object: task } %>
-        <%= f.check_box :done, { id: task.id, class: 'checkbox_done' } %>
+        <%= f.check_box :done, { class: 'checkbox_done', data: { id: task.id } } %>
       <% end %>
       <%= task.name %>
     </li>
