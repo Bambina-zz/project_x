@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   resources :errands do
     resources :tasks
   end
+
+  match '/errands/shared/:shared_hash', to: 'errands#show_shared_list', via: 'get'
+
   resources :users
 
   resources :sessions, only: [:new, :create, :destroy]
@@ -10,7 +13,6 @@ Rails.application.routes.draw do
   match '/login',    to: 'sessions#new',     via: 'get'
   match '/logout',   to: 'sessions#destroy', via: 'delete'
 
-  match '/shared/:owner_id/:shared_hash', to: 'errands#show_shared_list', via: 'get'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
