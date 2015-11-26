@@ -2,10 +2,8 @@
 <div>HOME</div>
 
 <%= form_for @errand, remote: true do |f| %>
-  <%= render partial: "shared/errors", locals: { object: @errand } %>
-
   <p>
-    <%= f.label :name %><br>
+    <%= f.label :name %>&nbsp;<span id='create_name_error'></span><br>
     <%= f.text_field :name %>
   </p>
   <p>

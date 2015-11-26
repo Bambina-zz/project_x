@@ -12,9 +12,12 @@ class ErrandsController < ApplicationController
   def create
     @errand = current_user.errands.new(errand_params)
 
-    if @errand.save
-    else
-      render 'new'
+    respond_to do |format|
+      if @errand.save
+        format.js.erb
+      else
+        format.js { render json: @errand.errors, status: :unprocessable_entity }
+      end
     end
   end
 
