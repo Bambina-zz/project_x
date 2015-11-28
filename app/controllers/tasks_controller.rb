@@ -18,7 +18,7 @@ class TasksController < ApplicationController
 
     if @task.save
     else
-      render json: { task: @task.errors }, status: :unprocessable_entity
+      render json: { task: @task.errors, method: :create }, status: :unprocessable_entity
     end
   end
 
@@ -31,7 +31,7 @@ class TasksController < ApplicationController
   def update
     if @task.update(task_params)
     else
-      render 'edit'
+      render json: { task: @task.errors, method: :update }, status: :unprocessable_entity
     end
   end
 

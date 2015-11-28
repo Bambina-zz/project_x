@@ -24,10 +24,10 @@
         <%= f.check_box :done, { class: 'checkbox_done', data: { id: task.id } } %>
       <% end %>
       <span class='name_task'><%= task.name %></span>
-      <%= form_for [task.errand, task], remote: true, html: { class: 'hidden'} do |f| %>
+      <%= form_for [task.errand, task], remote: true, html: { class: 'hidden update_task', data: {id: task.id}} do |f| %>
         <%= render partial: "shared/errors", locals: { object: task } %>
         <p>
-          <%= f.label :name %><br>
+          <%= f.label :name %>&nbsp;<span class='name_error'></span><br>
           <%= f.text_field :name %>
         </p>
         <p>
