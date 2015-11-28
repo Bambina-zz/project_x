@@ -15,11 +15,11 @@
   <% current_user.errands.each do |errand| %>
     <li id='<%= dom_id(errand) %>'>
       <%= link_to errand.name, errand_path(errand), remote: true, class: 'link_to_errand' %>
-      <%= form_for errand, remote: true, html: { class: 'hidden'} do |f| %>
+      <%= form_for errand, remote: true, html: { class: 'hidden update_errand', data: {id: errand.id } } do |f| %>
         <%= render partial: "shared/errors", locals: { object: errand } %>
 
         <p>
-          <%= f.label :name %><br>
+          <%= f.label :name %>&nbsp;<span class='name_error'></span><br>
           <%= f.text_field :name %>
         </p>
         <p>

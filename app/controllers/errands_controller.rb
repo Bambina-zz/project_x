@@ -13,7 +13,7 @@ class ErrandsController < ApplicationController
     @errand = current_user.errands.new(errand_params)
     if @errand.save
     else
-      render json: { errand: @errand.errors }, status: :unprocessable_entity
+      render json: { errand: @errand.errors, method: :create }, status: :unprocessable_entity
     end
   end
 
@@ -33,7 +33,7 @@ class ErrandsController < ApplicationController
   def update
     if @errand.update(errand_params)
     else
-      render json: @errand.errors, status: :unprocessable_entity
+      render json: { errand: @errand.errors, method: :update }, status: :unprocessable_entity
     end
   end
 
