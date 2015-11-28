@@ -13,7 +13,7 @@ class ErrandsController < ApplicationController
     @errand = current_user.errands.new(errand_params)
     if @errand.save
     else
-      render json: @errand.errors, status: :unprocessable_entity
+      render json: { errand: @errand.errors }, status: :unprocessable_entity
     end
   end
 

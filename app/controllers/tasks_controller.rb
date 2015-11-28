@@ -18,7 +18,7 @@ class TasksController < ApplicationController
 
     if @task.save
     else
-      render 'new'
+      render json: { task: @task.errors }, status: :unprocessable_entity
     end
   end
 

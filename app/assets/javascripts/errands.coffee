@@ -18,10 +18,11 @@ $(document).on 'click', '.edit_errand_cancel', (event) ->
 
 $(document).on 'ajax:success', '#new_errand', (event) ->
   $('#errand_name').val ''
-　.on 'ajax:error', '#new_errand', (event, data) ->
+　.on 'ajax:error', (event, data) ->
   errors = JSON.parse(data.responseText)
-  nameError = errors['name']
-  $('#create_name_error').html(nameError)
+  if errors['errand']
+    nameError = errors['errand']['name']
+    $('#new_errand .name_error').html(nameError)
 
 $(document).on 'click', '#copy_to_clipboard', (event) ->
   $('.shared_url').select()

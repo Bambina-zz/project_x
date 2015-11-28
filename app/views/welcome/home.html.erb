@@ -3,7 +3,7 @@
 
 <%= form_for @errand, remote: true do |f| %>
   <p>
-    <%= f.label :name %>&nbsp;<span id='create_name_error'></span><br>
+    <%= f.label :name %>&nbsp;<span class='name_error'></span><br>
     <%= f.text_field :name %>
   </p>
   <p>

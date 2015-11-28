@@ -20,6 +20,11 @@ $(document).on 'click', '.edit_task_cancel', (event) ->
 
 $(document).on 'ajax:success', '#new_task', (event) ->
   $('#task_name').val ''
+　.on 'ajax:error', (event, data) ->
+  errors = JSON.parse(data.responseText)
+  if errors['task']
+    nameError = errors['task']['name']
+    $('#new_task .name_error').html(nameError)
 
 $(document).on 'click', '.checkbox_done', (event)->
   element = event.target

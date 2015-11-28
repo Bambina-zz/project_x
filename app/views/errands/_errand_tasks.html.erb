@@ -9,7 +9,7 @@
   <%= form_for [@task.errand, @task], remote: true do |f| %>
     <%= render partial: "shared/errors", locals: { object: @task } %>
     <p>
-      <%= f.label :name %><br>
+      <%= f.label :name %>&nbsp;<span class='name_error'></span><br>
       <%= f.text_field :name %>
     </p>
     <p>
