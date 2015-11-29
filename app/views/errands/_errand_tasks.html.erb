@@ -1,31 +1,27 @@
 <div id='tasks_<%= dom_id(errand) %>'>
-  <div>
+  <div id='shared_url'>
     <input type='text' class='shared_url' value='<%= @shared_url %>' readonly='readonly' />
-    <span id='copy_to_clipboard'>
-      URLをコピーする
+    <span id='copy_to_clipboard' class='btn btn-default'>
+      リストURLをコピー
     </span>
   </div>
-  <h1>お使いリスト:<span class='name_errand'><%= errand.name %></span></h1>
+  <h1 class='clearfix'><span class='name_errand'><%= errand.name %></span></h1>
+
   <%= form_for [@task.errand, @task], remote: true do |f| %>
-    <%= render partial: "shared/errors", locals: { object: @task } %>
-    <p>
-      <%= f.label :name %>&nbsp;<span class='name_error'></span><br>
-      <%= f.text_field :name %>
-    </p>
-    <p>
-      <%= f.submit  %>
-    </p>
+    <p>&nbsp;<span class='name_error'></span></p>
+    <div class="input-group">
+      <%= f.text_field :name, { class: 'form-control', placeholder: '新しいタスク' } %>
+      <span class="input-group-btn"><%= f.submit '作成する', { class: 'btn btn-default' } %></span>
+    </div>
   <% end %>
-  <ol>
+  <ul class="list-group">
     <% errand.tasks.each do |task| %>
-    <li id='<%= dom_id(task) %>'>
+    <li id='<%= dom_id(task) %>' class='list-group-item'>
       <%= form_for [task.errand, task], remote: true, html: { id: 'edit_done'} do |f| %>
-        <%= render partial: "shared/errors", locals: { object: task } %>
         <%= f.check_box :done, { class: 'checkbox_done', data: { id: task.id } } %>
       <% end %>
       <span class='name_task'><%= task.name %></span>
       <%= form_for [task.errand, task], remote: true, html: { class: 'hidden update_task', data: {id: task.id}} do |f| %>
-        <%= render partial: "shared/errors", locals: { object: task } %>
         <p>
           <%= f.label :name %>&nbsp;<span class='name_error'></span><br>
           <%= f.text_field :name %>
@@ -39,5 +35,5 @@
       <%= link_to '削除', errand_task_path(errand, task), method: :delete, remote: true, data: { id: task.id, errand_id: errand.id, confirm: 'タスクを削除してもよろしいですか?' }  %>
     </li>
     <% end %>
-  </ol>
+  </ul>
 </div>
