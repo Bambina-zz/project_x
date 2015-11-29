@@ -20,9 +20,9 @@ $(document).on 'click', '.edit_task_cancel', (event) ->
 
 $(document).on 'ajax:success', '#new_task', ->
   $('#task_name').val ''
-　.on 'ajax:error', (event, data) ->
+　.on 'ajax:error', '#new_task', (event, data) ->
   response = JSON.parse(data.responseText)
-  if response['method'] == 'create' && response['task']
+  if response['task']
     nameError = response['task']['name']
     $('#new_task .name_error').html(nameError)
 
@@ -30,7 +30,7 @@ $(document).on 'ajax:error', '.update_task', (event, data) ->
   element = event.target
   id = $(element).data('id')
   response = JSON.parse(data.responseText)
-  if response['method'] == 'update' && response['task']
+  if response['task']
     nameError = response['task']['name']
     $("#edit_task_#{id} .name_error").html(nameError)
 

@@ -18,9 +18,9 @@ $(document).on 'click', '.edit_errand_cancel', (event) ->
 
 $(document).on 'ajax:success', '#new_errand', ->
   $('#errand_name').val ''
-　.on 'ajax:error', (event, data) ->
+　.on 'ajax:error', '#new_errand', (event, data) ->
     response = JSON.parse(data.responseText)
-    if response['method'] == 'create' && response['errand']
+    if response['errand']
       nameError = response['errand']['name']
       $('#new_errand .name_error').html(nameError)
 
@@ -28,7 +28,7 @@ $(document).on 'ajax:error', '.update_errand', (event, data) ->
   element = event.target
   id = $(element).data('id')
   response = JSON.parse(data.responseText)
-  if response['method'] == 'update' && response['errand']
+  if response['errand']
     nameError = response['errand']['name']
     $("#edit_errand_#{id} .name_error").html(nameError)
 
