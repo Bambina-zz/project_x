@@ -16,20 +16,21 @@ $(document).on 'click', '.edit_errand_cancel', (event) ->
   $("#errand_#{id} .edit_errand").removeClass('hidden')
   $("#errand_#{id} .edit_errand_cancel").addClass('hidden')
 
-$(document).on 'ajax:success', '#new_errand', ->
+$(document)
+  .on 'ajax:success', '#js-new-errand', ->
   $('#errand_name').val ''
-　.on 'ajax:error', '#new_errand', (event, data) ->
+　.on 'ajax:error', '#js-new-errand', (event, data) ->
     response = JSON.parse(data.responseText)
     if response['errand']
       nameError = response['errand']['name']
-      $('#new_errand .name_error').html(nameError)
+      $('#js-new-errand .name_error').html(nameError)
 
-$(document).on 'ajax:error', '.update_errand', (event, data) ->
+$(document).on 'ajax:error', '.js-update-errand', (event, data) ->
   element = event.target
   id = $(element).data('id')
-  response = JSON.parse(data.responseText)
-  if response['errand']
-    nameError = response['errand']['name']
+  errors = JSON.parse(data.responseText)['errand']
+  if errors
+    nameError = errors['name']
     $("#edit_errand_#{id} .name_error").html(nameError)
 
 $(document).on 'click', '#copy_to_clipboard', (event) ->
