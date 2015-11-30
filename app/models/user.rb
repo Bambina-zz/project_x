@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_secure_password
 
   has_many :errands, dependent: :destroy, foreign_key: :owner_id
+  has_many :tasks, through: :errands
 
   validates :name,  presence: true, length: { maximum: 50 }
 

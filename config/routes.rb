@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   resources :errands do
     resources :tasks
   end
+
+  match '/errands/shared/:shared_hash', to: 'errands#show_shared_list', via: 'get'
+
   resources :users
 
   resources :sessions, only: [:new, :create, :destroy]

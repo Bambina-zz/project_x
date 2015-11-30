@@ -11,10 +11,9 @@ class ErrandsController < ApplicationController
 
   def create
     @errand = current_user.errands.new(errand_params)
-
     if @errand.save
     else
-      render 'new'
+      render json: { errand: @errand.errors }, status: :unprocessable_entity
     end
   end
 
@@ -24,12 +23,17 @@ class ErrandsController < ApplicationController
   def show
     errand = Errand.find(params[:id])
     @task = errand.tasks.new
+    @shared_url = "#{root_url}errands/shared/#{errand.shared_hash}"
+  end
+
+  def show_shared_list
+    @errand = Errand.find_by(shared_hash: params[:shared_hash])
   end
 
   def update
     if @errand.update(errand_params)
     else
-      render 'edit'
+      render json: { errand: @errand.errors }, status: :unprocessable_entity
     end
   end
 

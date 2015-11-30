@@ -1,0 +1,12 @@
+<h1><%= @errand.name %></h1>
+<ul class="list-group">
+  <% @errand.tasks.each do |task| %>
+    <li id='<%= dom_id(task) %>' class='list-group-item'>
+      <%= form_for [task.errand, task], remote: true, html: { id: 'edit_done'} do |f| %>
+        <%= render partial: "shared/errors", locals: { object: task } %>
+        <%= f.check_box :done, { class: 'checkbox_done', data: { id: task.id } } %>
+      <% end %>
+      &nbsp;<%= task.name %>
+    </li>
+  <% end %>
+</ul>
