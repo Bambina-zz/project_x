@@ -18,15 +18,17 @@ $(document).on 'click', '.edit_task_cancel', (event) ->
   $("#tasks_errand_#{errandId} #task_#{id} .edit_task").removeClass('hidden')
   $("#tasks_errand_#{errandId} #task_#{id} .edit_task_cancel").addClass('hidden')
 
-$(document).on 'ajax:success', '#new_task', ->
+$(document)
+.on 'ajax:success', '#new_task', ->
   $('#task_name').val ''
-　.on 'ajax:error', '#new_task', (event, data) ->
+.on 'ajax:error', '#new_task', (event, data) ->
   response = JSON.parse(data.responseText)
   if response['task']
     nameError = response['task']['name']
     $('#new_task .name_error').html(nameError)
 
-$(document).on 'ajax:error', '.update_task', (event, data) ->
+$(document)
+.on 'ajax:error', '.update_task', (event, data) ->
   element = event.target
   id = $(element).data('id')
   response = JSON.parse(data.responseText)
