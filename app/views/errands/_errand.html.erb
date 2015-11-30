@@ -2,7 +2,7 @@
   <%= link_to errand.name, errand_path(errand), remote: true, class: 'link_to_errand' %>
   <%= form_for errand, remote: true, html: { class: 'hidden js-update-errand', data: {id: errand.id } } do |f| %>
     <p>&nbsp;<span class='name_error'></span></p>
-    <%= f.text_field :name, { class: 'form-control', placeholder: 'errand.name' } %>
+    <%= f.text_field :name, { class: 'form-control', placeholder: errand.name } %>
     <%= f.submit '変更する', { class: 'btn btn-default' } %>
   <% end %>
 <div class='tools'>
