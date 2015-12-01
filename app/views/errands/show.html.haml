@@ -1,0 +1,11 @@
+%h1
+  お使いリスト:#{@errand.name}
+%ol
+  - @errand.tasks.each do |task|
+    %li
+      = task.name
+      = link_to '詳細', errand_task_path(@errand, task)
+      = link_to '編集', edit_errand_task_path(@errand, task)
+      = link_to '削除', errand_task_path(@errand, task), method: :delete, data: { confirm: 'Are you sure?' }
+= link_to '新しいタスク', new_errand_task_path(errand_id: @errand.id)
+= link_to 'リストの一覧', errands_path

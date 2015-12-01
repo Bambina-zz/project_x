@@ -1,0 +1,21 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title ProjectX
+    = stylesheet_link_tag    'application', media: 'all'
+    = javascript_include_tag 'application'
+    = csrf_meta_tags
+  %body
+    #wrapper
+      #user_authentication
+        - if flash[:alert]
+          .alert= flash[:alert]
+        - if logged_in?
+          = link_to "プロフィール", current_user
+          %br/
+          = link_to "ログアウト", logout_path, method: "delete"
+        - else
+          = link_to "ログイン", login_path
+          = link_to "新規登録", register_path
+      = yield

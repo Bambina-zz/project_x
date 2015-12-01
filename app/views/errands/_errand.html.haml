@@ -1,0 +1,12 @@
+%li.item_errand{:id => "#{dom_id(errand)}"}
+  = link_to errand.name, errand_path(errand), remote: true, class: 'link_to_errand'
+  = form_for errand, remote: true, html: { class: 'hidden js-update-errand', data: {id: errand.id } } do |f|
+    %p
+       
+      %span.name_error
+    = f.text_field :name, { class: 'form-control', placeholder: errand.name }
+    = f.submit '変更する', { class: 'btn btn-default' }
+  .tools
+    %p.item_tool= link_to '編集', '#', data: { id: errand.id }, class: 'edit_errand'
+    %p.item_tool= link_to 'キャンセル', '#', data: { id: errand.id }, class: 'edit_errand_cancel hidden'
+    %p.item_tool= link_to '削除', errand_path(errand), data: { id: errand.id, confirm: 'リストを削除してもよいですか？' }, method: :delete, remote: true

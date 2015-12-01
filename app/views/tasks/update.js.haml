@@ -1,0 +1,7 @@
+- if params[:task][:name]
+  $('#tasks_errand_#{@task.errand.id} #task_#{@task.id} .name_task').text('#{j @task.name}');
+  
+  $('#tasks_errand_#{@task.errand.id} #edit_task_#{@task.id}').addClass('hidden');
+  $('#tasks_errand_#{@task.errand.id} #task_#{@task.id} .name_task').removeClass('hidden');
+  $('#tasks_errand_#{@task.errand.id} #task_#{@task.id} .edit_task').removeClass('hidden');
+  $('#tasks_errand_#{@task.errand.id} #task_#{@task.id} .edit_task_cancel').addClass('hidden');
