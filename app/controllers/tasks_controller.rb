@@ -1,6 +1,6 @@
 # coding: utf-8
 class TasksController < ApplicationController
-  before_action :set_task, only: %i(edit show update destroy)
+  before_action :set_task, only: %i(edit show destroy)
 
   def index
     @tasks = Task.all
@@ -29,6 +29,8 @@ class TasksController < ApplicationController
   end
 
   def update
+    @task = Task.find(params[:id])
+
     if @task.update(task_params)
     else
       render json: { task: @task.errors }, status: :unprocessable_entity
@@ -41,7 +43,7 @@ class TasksController < ApplicationController
 
   private
   def set_task
-    @task = Task.find(params[:id])
+    @task = current_user.tasks.find(params[:id])
   end
 
   def task_params
