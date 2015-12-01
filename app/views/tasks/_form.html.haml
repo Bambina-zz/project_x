@@ -1,0 +1,12 @@
+= form_for [@task.errand, @task] do |f|
+  = render partial: "shared/errors", locals: { object: @task }
+  %p
+    = f.label :name
+    %br/
+    = f.text_field :name
+  %p
+    = f.label :done
+    %br/
+    = f.check_box :done
+  %p
+    = f.submit

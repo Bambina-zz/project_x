@@ -1,0 +1,32 @@
+%div{:id => "tasks_#{dom_id(errand)}"}
+  #shared_url
+    %input.shared_url{:readonly => "readonly", :type => "text", :value => "#{@shared_url}"}/
+    %span#copy_to_clipboard.btn.btn-default
+      リストURLをコピー
+  %h1.clearfix
+    %span.name_errand= errand.name
+  = form_for [@task.errand, @task], remote: true do |f|
+    %p
+       
+      %span.name_error
+    .input-group
+      = f.text_field :name, { class: 'form-control', placeholder: '新しいタスク' }
+      %span.input-group-btn= f.submit '作成する', { class: 'btn btn-default' }
+  %ul.list-group
+    - errand.tasks.each do |task|
+      %li.list-group-item{:id => "#{dom_id(task)}"}
+        = form_for [task.errand, task], remote: true, html: { id: 'edit_done'} do |f|
+          = f.check_box :done, { class: 'checkbox_done', data: { id: task.id } }
+        %span.name_task= task.name
+        = form_for [task.errand, task], remote: true, html: { class: 'hidden update_task', data: {id: task.id}} do |f|
+          %p
+            = f.label :name
+             
+            %span.name_error
+            %br/
+            = f.text_field :name
+          %p
+            = f.submit
+        = link_to '編集', '#', data: { id: task.id, errand_id: errand.id }, class: 'edit_task'
+        = link_to 'キャンセル', '#', data: { id: task.id, errand_id: errand.id }, class: 'edit_task_cancel hidden'
+        = link_to '削除', errand_task_path(errand, task), method: :delete, remote: true, data: { id: task.id, errand_id: errand.id, confirm: 'タスクを削除してもよろしいですか?' }
