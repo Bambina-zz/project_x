@@ -1,3 +1,55 @@
 // Place all the styles related to the errands controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+/* Sidebar Styles */
+#js-new-errand {
+  padding: 10px;
+  text-align: center;
+}
+
+#sidebar-wrapper .name_error {
+  color: #fff;
+}
+
+.item_errand {
+  position: relative;
+}
+
+.tools {
+  position: absolute;
+  display: inline-block;
+  height: 40px;
+  top: 0;
+  right: 0;
+}
+
+.tools p.item_tool {
+  display: block;
+  float: left;
+}
+
+.item_tool a {
+  padding-right: 15px;
+}
+
+/* Contents Wrapper */
+#shared_url {
+  float: right;
+}
+
+.shared_url {
+  opacity: 0;
+}
+
+#edit_done {
+  display: inline;
+}
+
+.list-group-item {
+  border: none!important;
+}
+
+#new_task {
+  margin-bottom: 30px;
+}

@@ -1,40 +1,45 @@
 <% if logged_in? %>
-<div>HOME</div>
-
-<%= form_for @errand, remote: true do |f| %>
-  <%= render partial: "shared/errors", locals: { object: @errand } %>
-
-  <p>
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.submit  %>
-  </p>
-<% end %>
-
-<ul id='list_errands'>
-  <% current_user.errands.each do |errand| %>
-    <li id='<%= dom_id(errand) %>'>
-      <%= link_to errand.name, errand_path(errand), remote: true, class: 'link_to_errand' %>
-      <%= form_for errand, remote: true, html: { class: 'hidden'} do |f| %>
-        <%= render partial: "shared/errors", locals: { object: errand } %>
-
-        <p>
-          <%= f.label :name %><br>
-          <%= f.text_field :name %>
-        </p>
-        <p>
-          <%= f.submit  %>
-        </p>
-      <% end %>
-      <%= link_to '編集', '#', data: { id: errand.id }, class: 'edit_errand' %>
-      <%= link_to 'キャンセル', '#', data: { id: errand.id }, class: 'edit_errand_cancel hidden' %>
-      <%= link_to '削除', errand_path(errand), data: { id: errand.id, confirm: 'リストを削除してもよいですか？' }, method: :delete, remote: true %>
-    </li>
+<!-- Sidebar -->
+<div id="sidebar-wrapper">
+  <%= form_for @errand, remote: true, html: { id: 'js-new-errand' } do |f| %>
+      <p>&nbsp;<span class='name_error'></span></p>
+      <div class="input-group">
+        <%= f.text_field :name, { class: 'form-control', placeholder: '新しいリスト' } %>
+        <span class="input-group-btn"><%= f.submit '作成する', { class: 'btn btn-default' }  %></span>
+      </div>
   <% end %>
-</ul>
 
-<div id='list_tasks'>
+  <ul id='list_errands' class='sidebar-nav'>
+    <% current_user.errands.each do |errand| %>
+      <li id='<%= dom_id(errand) %>' class='item_errand'>
+        <%= link_to errand.name, errand_path(errand), remote: true, class: 'link_to_errand' %>
+        <%= form_for errand, remote: true, html: { class: 'hidden js-update-errand', data: {id: errand.id } } do |f| %>
+          <p>&nbsp;<span class='name_error'></span></p>
+          <%= f.text_field :name, { class: 'form-control', placeholder: errand.name } %>
+          <%= f.submit '変更する', { class: 'btn btn-default' } %>
+        <% end %>
+         <div class='tools'>
+          <p class='item_tool'><%= link_to '編集', '#', data: { id: errand.id }, class: 'edit_errand' %></p>
+          <p class='item_tool'><%= link_to 'キャンセル', '#', data: { id: errand.id }, class: 'edit_errand_cancel hidden' %></p>
+          <p class='item_tool'><%= link_to '削除', errand_path(errand), data: { id: errand.id, confirm: 'リストを削除してもよいですか？' }, method: :delete, remote: true %></p>
+        </div>
+      </li>
+    <% end %>
+  </ul>
 </div>
+
+<!-- Page Content -->
+<div id="page-content-wrapper">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12">
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle"><i class="fa fa-fw fa-align-justify"></i></a>
+        <div id='list_tasks'>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /#page-content-wrapper -->
+
 <% end %>

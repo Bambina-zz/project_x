@@ -14,7 +14,7 @@ class UsersController < ApplicationController
 
     if @user.save
       login @user
-      redirect_to errands_url
+      redirect_to root_path
     else
       render 'new'
     end

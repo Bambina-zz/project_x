@@ -7,18 +7,21 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <% if flash[:alert] %>
-    <div class="alert"><%= flash[:alert] %></div>
-  <% end %>
-  <% if logged_in? %>
-    <%= link_to "プロフィール", current_user %><br />
-    <%= link_to "ログアウト", logout_path, method: "delete" %>
-  <% else %>
-    <%= link_to "ログイン", login_path %>
-    <%= link_to "新規登録", register_path %>
-  <% end %>
+  <div id='wrapper'>
+    <div id='user_authentication'>
+      <% if flash[:alert] %>
+        <div class="alert"><%= flash[:alert] %></div>
+      <% end %>
+      <% if logged_in? %>
+        <%= link_to "プロフィール", current_user %><br />
+        <%= link_to "ログアウト", logout_path, method: "delete" %>
+      <% else %>
+        <%= link_to "ログイン", login_path %>
+        <%= link_to "新規登録", register_path %>
+      <% end %>
+    </div>
 
-  <%= yield %>
-
+    <%= yield %>
+  </div>
 </body>
 </html>
