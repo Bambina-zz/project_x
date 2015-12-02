@@ -1,13 +1,13 @@
 %div{:id => "tasks_#{dom_id(errand)}"}
   #shared_url
-    %input.shared_url{:readonly => "readonly", :type => "text", :value => "#{@shared_url}"}/
+    %input.shared_url{:readonly => "readonly", :type => "text", :value => "#{@shared_url}"}
     %span#copy_to_clipboard.btn.btn-default
       リストURLをコピー
   %h1.clearfix
     %span.name_errand= errand.name
   = form_for [@task.errand, @task], remote: true do |f|
-    %p
-       
+    %p.task_input_label
+      = t'activerecord.attributes.task.name'
       %span.name_error
     .input-group
       = f.text_field :name, { class: 'form-control', placeholder: '新しいタスク' }
@@ -19,9 +19,8 @@
           = f.check_box :done, { class: 'checkbox_done', data: { id: task.id } }
         %span.name_task= task.name
         = form_for [task.errand, task], remote: true, html: { class: 'hidden update_task', data: {id: task.id}} do |f|
-          %p
-            = f.label :name
-             
+          %p.task_input_label
+            = t'activerecord.attributes.task.name'
             %span.name_error
             %br/
             = f.text_field :name
