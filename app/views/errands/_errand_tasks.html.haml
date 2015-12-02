@@ -7,7 +7,7 @@
     %span.name_errand= errand.name
   = form_for [@task.errand, @task], remote: true do |f|
     %p.task_input_label
-      = t'activerecord.attributes.task.name'
+      = f.label :name
       %span.name_error
     .input-group
       = f.text_field :name, { class: 'form-control', placeholder: '新しいタスク' }
@@ -20,7 +20,7 @@
         %span.name_task= task.name
         = form_for [task.errand, task], remote: true, html: { class: 'hidden update_task', data: {id: task.id}} do |f|
           %p.task_input_label
-            = t'activerecord.attributes.task.name'
+            = f.label :name
             %span.name_error
             %br/
             = f.text_field :name

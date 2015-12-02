@@ -3,7 +3,7 @@
   #sidebar-wrapper
     = form_for @errand, remote: true, html: { id: 'js-new-errand' } do |f|
       %p.errand_input_label
-        = t'activerecord.attributes.errand.name'
+        = f.label :name
         %span.name_error
       .input-group
         = f.text_field :name, { class: 'form-control', placeholder: '新しいリスト' }
@@ -14,7 +14,7 @@
           = link_to errand.name, errand_path(errand), remote: true, class: 'link_to_errand'
           = form_for errand, remote: true, html: { class: 'hidden js-update-errand', data: {id: errand.id } } do |f|
             %p.errand_input_label
-              = t'activerecord.attributes.errand.name'
+              = f.label :name
               %span.name_error
             = f.text_field :name, { class: 'form-control', placeholder: errand.name }
             = f.submit '変更する', { class: 'btn btn-default' }
