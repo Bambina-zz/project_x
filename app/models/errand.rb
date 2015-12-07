@@ -5,11 +5,11 @@ class Errand < ActiveRecord::Base
   validates :owner_id,    presence: true
   validates :shared_hash, presence: true, uniqueness: true
 
-  before_validation :generate_shared_hash
+  before_validation :generate_shared_hash, on: :create
 
   private
 
   def generate_shared_hash
-    self.shared_hash = SecureRandom.uuid
+    self.shared_hash ||= SecureRandom.uuid
   end
 end
