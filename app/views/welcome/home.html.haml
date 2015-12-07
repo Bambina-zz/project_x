@@ -10,7 +10,7 @@
         %span.input-group-btn= f.submit '作成する', { class: 'btn btn-default' }
     %ul#list_errands.sidebar-nav
       - current_user.errands.each do |errand|
-        %li.item_errand{:id => "#{dom_id(errand)}"}
+        %li.item_errand{ id: "#{dom_id(errand)}" }
           = link_to errand.name, errand_path(errand), remote: true, class: 'link_to_errand'
           = form_for errand, remote: true, html: { class: 'hidden js-update-errand', data: {id: errand.id } } do |f|
             %p.errand_input_label
@@ -27,7 +27,7 @@
     .container-fluid
       .row
         .col-lg-12
-          %a#menu-toggle.btn.btn-default{:href => "#menu-toggle"}
+          %a#menu-toggle.btn.btn-default{ href: "#menu-toggle" }
             %i.fa.fa-fw.fa-align-justify
           #list_tasks
   / /#page-content-wrapper
