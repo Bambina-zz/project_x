@@ -24,18 +24,18 @@ end
 group :development, :test do
   gem 'pry-rails'
   gem 'web-console', '~> 2.0'
-  gem 'rspec-rails', '~> 3.3.3'
-  gem 'factory_girl_rails', '~> 4.5.0'
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
 
 group :test do
-  gem 'faker', '~> 1.5.0'
-  gem 'capybara', '~> 2.5.0'
-  gem 'database_cleaner', '~> 1.5.0'
-  gem 'launchy', '~> 2.4.3'
-  gem 'selenium-webdriver', '~> 2.47.1'
-  gem 'shoulda-matchers', '~> 3.0'
+  gem 'faker'
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'launchy'
+  gem 'poltergeist'
+  gem 'shoulda-matchers'
 end
