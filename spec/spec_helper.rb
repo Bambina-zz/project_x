@@ -1,4 +1,10 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+ENV["RAILS_ENV"] ||= 'test'
+require File.expand_path("../../config/environment", __FILE__)
+require 'capybara/rspec'
+require 'capybara/poltergeist'
+Capybara.javascript_driver = :poltergeist
+
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
     # defined using `chain`, e.g.:
