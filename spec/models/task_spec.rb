@@ -3,8 +3,9 @@ require 'rails_helper'
 describe Task, type: :model do
   describe "transaction" do
     it "has one after adding one" do
+      tasks_count = Task.count
       create(:task)
-      expect(Task.count).to eq 1
+      expect(Task.count).to eq tasks_count + 1
     end
   end
 
