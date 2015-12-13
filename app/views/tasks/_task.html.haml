@@ -1,9 +1,9 @@
-%li.list-group-item{:id => "#{dom_id(@task)}"}
-  = form_for [@task.errand, @task], remote: true, html: { id: 'edit_done'} do |f|
+%li.list-group-item{ id: "#{dom_id(@task)}" }
+  = form_for [@task.errand, @task], remote: true, html: { id: 'edit_done' } do |f|
     = render partial: "shared/errors", locals: { object: @task }
     = f.check_box :done, { class: 'checkbox_done', data: { id: task.id } }
   %span.name_task= @task.name
-  = form_for [@task.errand, @task], remote: true, html: { class: 'hidden update_task', data: {id: task.id}} do |f|
+  = form_for [@task.errand, @task], remote: true, html: { class: 'hidden update_task', data: {id: task.id} } do |f|
     %p
       = f.label :name
        
