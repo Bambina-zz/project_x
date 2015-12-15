@@ -142,6 +142,9 @@ ja:
       header:
         one: "%{model}にエラーが発生しました"
         other: "%{model}に%{count}個のエラーが発生しました"
+  form_title:
+    edit: "%{model}の編集"
+    new: "%{model}の新規作成"
   helpers:
     select:
       prompt: 選択してください
