@@ -3,10 +3,8 @@ require 'rails_helper'
 describe Errand, type: :model do
   describe "transaction" do
     it "has one after adding one" do
-      errands_count = Errand.count
       owner = create(:user)
-      create(:errand, owner_id: owner.id)
-      expect(Errand.count).to eq errands_count + 1
+      expect{ create(:errand, owner_id: owner.id) }.to change{Errand.count}.by 1
     end
   end
 

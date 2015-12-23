@@ -3,9 +3,7 @@ require 'rails_helper'
 describe User, type: :model do
   describe "transaction" do
     it "has one after adding one" do
-      users_count = User.count
-      create(:user)
-      expect(User.count).to eq users_count + 1
+      expect{ create(:user) }.to change{User.count}.by 1
     end
   end
 
