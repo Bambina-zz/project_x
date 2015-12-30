@@ -16,3 +16,14 @@ describe "the signin form" do
     expect(User.count).to eq users_count + 1
   end
 end
+
+describe "the login form" do
+  let(:user) { create(:user) }
+  it "allows user to log in" do
+    visit '/login'
+    fill_in 'Email', with: user.email
+    fill_in 'Password', with: user.password
+    click_button('ログイン')
+    expect(page).to have_content 'ログアウト'
+  end
+end
