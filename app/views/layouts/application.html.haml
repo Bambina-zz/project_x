@@ -8,7 +8,7 @@
     = csrf_meta_tags
   %body
     #wrapper
-      #user_authentication
+      #user_authentication.tmp_zindex
         - if flash[:alert]
           .alert= flash[:alert]
         - if logged_in?
