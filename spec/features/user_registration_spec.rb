@@ -1,11 +1,9 @@
 require 'rails_helper'
 
-describe "the signin process", js: true do
+describe "the signin form" do
   let!(:users_count) { User.count }
-  it "displays signup page" do
-    visit '/'
-    click_link '新規登録'
-    expect(page).to have_content '新規登録'
+  it "allows user registration" do
+    visit '/register'
     within '#new_user' do
       fill_in '名前', with: 'ひろのまゆこ'
       fill_in 'メールアドレス', with: 'xxx@example.com'
