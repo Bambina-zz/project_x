@@ -14,6 +14,15 @@ feature 'Errand management', js: true do
     }.to change { Errand.count }.by(1)
   end
 
+  scenario "user is able to edit errand's name" do
+    within "#errand_#{errand.id}" do
+      click_link '編集'
+      fill_in 'errand_name', with: 'new_name'
+      click_button '変更する'
+      expect(page).to have_selector '.link_to_errand', text: 'new_name'
+    end
+  end
+
   scenario 'user is able to delete an errand' do
     expect {
       click_link '削除'
