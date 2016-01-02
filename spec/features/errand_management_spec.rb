@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 feature 'Errand management', js: true do
-  let!(:user)   { create(:user) }
-  let!(:errand) { create(:errand, owner_id: user.id)}
+  given!(:user)   { create(:user) }
+  given!(:errand) { create(:errand, owner_id: user.id)}
 
-  before { login_with user.email, user.password }
+  background { login_with user.email, user.password }
 
   scenario 'user is able to create an errand' do
     fill_in '名前', with: 'Errand 1'
