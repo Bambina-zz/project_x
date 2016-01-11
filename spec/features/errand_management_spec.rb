@@ -29,4 +29,11 @@ feature 'Errand management', js: true do
       sleep 0.5
     }.to change { Errand.count }.by(-1)
   end
+
+  scenario 'user is able to read existing errand' do
+    find('a', text: errand.name).trigger('click')
+    within '#page-content-wrapper' do
+      expect(page).to have_selector '.name_errand', text: errand.name
+    end
+  end
 end
