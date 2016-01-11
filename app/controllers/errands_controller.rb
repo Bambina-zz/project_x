@@ -28,6 +28,11 @@ class ErrandsController < ApplicationController
 
   def show_shared_list
     @errand = Errand.find_by(shared_hash: params[:shared_hash])
+
+    respond_to do |format|
+      format.html
+      format.json
+    end
   end
 
   def update
