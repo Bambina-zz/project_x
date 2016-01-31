@@ -26,15 +26,6 @@ class ErrandsController < ApplicationController
     @shared_url = "#{root_url}errands/shared/#{errand.shared_hash}"
   end
 
-  def show_shared_list
-    @errand = Errand.find_by(shared_hash: params[:shared_hash])
-
-    respond_to do |format|
-      format.html
-      format.json
-    end
-  end
-
   def update
     if @errand.update(errand_params)
     else

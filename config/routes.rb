@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     resources :tasks
   end
 
-  match '/errands/shared/:shared_hash', to: 'errands#show_shared_list', via: 'get'
+  match '/shared_errands/:shared_hash', to: 'shared_errands#show', via: 'get'
 
   resources :users
 
