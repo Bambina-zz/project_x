@@ -19,15 +19,18 @@ gem 'haml-rails', '~> 0.9.0'
 group :production do
   gem 'rails_12factor'
 end
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+group :development do
+  gem 'web-console'
+end
+
 group :development, :test do
   gem 'pry-rails'
-  gem 'web-console', '~> 2.0'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
-
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
