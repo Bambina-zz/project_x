@@ -24,7 +24,7 @@ class ErrandsController < ApplicationController
   def show
     errand = Errand.find(params[:id])
     @task = errand.tasks.new
-    @shared_url = "#{root_url}errands/shared/#{errand.shared_hash}"
+    @shared_url = "#{root_url}shared_errands/#{errand.shared_hash}"
   end
 
   def update
