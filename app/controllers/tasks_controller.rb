@@ -1,6 +1,7 @@
 # coding: utf-8
 class TasksController < ApplicationController
   before_action :set_task, only: %i(edit show destroy)
+  protect_from_forgery with: :null_session, if: Proc.new { |c| c.request.format == 'application/json' }
 
   def index
     @tasks = Task.all
@@ -32,6 +33,10 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
 
     if @task.update(task_params)
+      respond_to do |format|
+        format.js
+        format.json { render json: { task: @task }}
+      end
     else
       render json: { task: @task.errors }, status: :unprocessable_entity
     end

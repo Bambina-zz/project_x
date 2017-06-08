@@ -4,7 +4,7 @@ class SharedErrandsController < ApplicationController
 
     respond_to do |format|
       format.html { render template: 'errands/show' }
-      format.json
+      format.json { render :json => { :errand => @errand, :tasks => @errand.tasks } }
     end
   end
 end

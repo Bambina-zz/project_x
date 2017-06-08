@@ -1,4 +1,5 @@
 class ErrandsController < ApplicationController
+  before_action :check_authorized #=> except private methods
   before_action :set_errand, only: %i(edit show update destroy)
 
   def index
